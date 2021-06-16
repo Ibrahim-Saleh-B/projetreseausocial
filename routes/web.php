@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PublicationController;
+use App\Http\Controllers\ProfileController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +25,29 @@ use App\Http\Controllers\HomeController;
 
 Route::middleware('web', 'auth')->group(function () {
 
-    Route::get('/', [HomeController::class, 'index']);
-    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard');
+    Route::get('/', [PublicationController::class, 'index']);
+    Route::get('/dashboard', [PublicationController::class, 'index'])->name('dashboard');
+
+    /**
+     * Publications
+     */
+    Route::post('/dashboard/publication', [PublicationController::class, 'postPubilcaiton'])->name('publication.post');
+    Route::get('/dashboard/affichagePublication', [PublicationController::class, 'affichagePublication'])->name('publication.affichage');
+
+    /**
+     * Chat
+     */
+    Route::get('/chat', function () {
+            return view('chat');
+        });
+
+    /**
+     * Profil
+     */
+    Route::get('/profile', [ProfileController::class, 'outilDeRecherche'])->name('profile.outilDeRecherche');
+
+
+
 });
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
